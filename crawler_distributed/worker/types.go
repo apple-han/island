@@ -53,14 +53,14 @@ func SerializeResult(
 }
 
 func DeserializeRequest(
-	r *pb.ProcessRequest) (pb.ProcessRequest, error) {
+	r *pb.ProcessRequest) (engine.Request, error) {
 	parser, err := deserializeParser(r.SerializedParser)
 	if err != nil {
-		return pb.ProcessRequest{}, err
+		return engine.Request{}, err
 	}
-	return pb.ProcessRequest{
+	return engine.Request{
 		Url:    r.Url,
-		SerializedParser: parser,
+		Parser: parser,
 	}, nil
 }
 
