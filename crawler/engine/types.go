@@ -20,7 +20,7 @@ type Request struct {
 
 type ParseResult struct {
 	Requests []Request
-	Items    []pb.Item
+	Items    []*pb.Item
 }
 
 type NilParser struct{}

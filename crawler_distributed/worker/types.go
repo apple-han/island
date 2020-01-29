@@ -27,11 +27,11 @@ func SerializeRequest(r engine.Request) *pb.ProcessRequest {
 
 func SerializeResult(
 	r engine.ParseResult) pb.ProcessResult {
-	result := engine.ParseResult{
-		Item: r.Item,
+	result := pb.ProcessResult{
+		Item: r.Items,
 	}
 
-	for _, req := range r.Request {
+	for _, req := range r.Requests {
 		result.Request = append(result.Request,
 			SerializeRequest(req))
 	}
