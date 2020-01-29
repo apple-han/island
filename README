@@ -1,0 +1,28 @@
+在这里非常感谢大加对这门课程的支持，希望同学们都能够获得
+收获。以下是我录制完视频后又对代码做的一些小修改，包括修
+复一些低级错误，以及美化。
+另外，因为最终项目涉及第三方，我隐去了爬虫部分的起始url，
+大家需要根据视频替换真正的url后方可运行。
+
+crawler_distributed/rpcsupport/rpc.go ServeRpc
+    去掉了最后的return nil
+
+crawler/frontend/controller/searchresult.go
+    修复了"上一页"计算错误的问题
+
+crawler/config/config.go
+    将大部分config移动到这里，这样crawler不会再依赖
+    crawler_distributed
+
+crawler_distributed/main.go
+    修复了如果没有worker连接会High CPU（死循环）的错误
+
+crawler/fetcher/fetcher.go
+    提取verboseLogging参数以供配置
+
+crawler/main.go & crawler_distributed/main.go
+    隐去爬虫起始页面url
+
+crawler/engine/concurrent.go
+    修复了go func() { e.ItemChan <- item }()中
+    分发item时变量作用域的问题
