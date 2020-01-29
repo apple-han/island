@@ -26,8 +26,8 @@ type ParseResult struct {
 type NilParser struct{}
 
 func (NilParser) Parse(
-	_ []byte, _ string) pb.ProcessResult {
-	return pb.ProcessResult{}
+	_ []byte, _ string) ParseResult {
+	return ParseResult{}
 }
 
 func (NilParser) Serialize() (

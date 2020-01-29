@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"net/rpc"
+	pb "reptiles/crawler_distributed/proto"
 
 	"log"
 
@@ -61,12 +61,12 @@ func main() {
 }
 
 func createClientPool(
-	hosts []string) (chan *rpc.Client, error) {
-	var clients []*rpc.Client
+	hosts []string) (chan *pb.ReptilesClient, error) {
+	var clients []*pb.ReptilesClient
 	for _, h := range hosts {
 		client, err := rpcsupport.NewClient(h)
 		if err == nil {
-			clients = append(clients, client)
+			clients = append(clients, &client)
 			log.Printf("Connected to %s", h)
 		} else {
 			log.Printf(
@@ -79,7 +79,7 @@ func createClientPool(
 		return nil, errors.New(
 			"no connections available")
 	}
-	out := make(chan *rpc.Client)
+	out := make(chan *pb.ReptilesClient)
 	go func() {
 		for {
 			for _, client := range clients {

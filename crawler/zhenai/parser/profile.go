@@ -129,7 +129,7 @@ func (p *ProfileParser) Parse(
 }
 
 func (p *ProfileParser) Serialize() (
-	name string, args interface{}) {
+	name string, args string) {
 	return config.ParseProfile, p.userName
 }
 

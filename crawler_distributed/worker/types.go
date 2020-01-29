@@ -3,7 +3,6 @@ package worker
 import (
 	"errors"
 
-	"fmt"
 	"log"
 
 	"reptiles/crawler/config"
@@ -82,13 +81,8 @@ func deserializeParser(
 			config.ParseCity), nil
 
 	case config.ParseProfile:
-		if userName, ok := p.Args.(string); ok {
 			return zhenai.NewProfileParser(
-				userName), nil
-		} else {
-			return nil, fmt.Errorf("invalid "+
-				"arg: %v", p.Args)
-		}
+				p.Args), nil
 	case config.ParseCarDetail:
 		return engine.NewFuncParser(
 			xcar.ParseCarDetail,
