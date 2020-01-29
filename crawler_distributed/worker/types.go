@@ -51,9 +51,9 @@ func DeserializeRequest(
 }
 
 func DeserializeResult(
-	r pb.ProcessResult) pb.ProcessResult {
-	result := pb.ProcessResult{
-		Item: r.Item,
+	r pb.ProcessResult) engine.ParseResult {
+	result := engine.ParseResult{
+		Items: r.Item,
 	}
 
 	for _, req := range r.Request {
@@ -63,7 +63,7 @@ func DeserializeResult(
 				"request: %v", err)
 			continue
 		}
-		result.Request = append(result.Request,
+		result.Requests = append(result.Requests,
 			engineReq)
 	}
 	return result

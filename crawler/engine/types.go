@@ -6,10 +6,10 @@ import (
 )
 
 type ParserFunc func(
-	contents []byte, url string) pb.ProcessResult
+	contents []byte, url string) ParseResult
 
 type Parser interface {
-	Parse(contents []byte, url string) pb.ProcessResult
+	Parse(contents []byte, url string) ParseResult
 	Serialize() (name string, args string)
 }
 
@@ -31,8 +31,8 @@ func (NilParser) Parse(
 }
 
 func (NilParser) Serialize() (
-	name string, args interface{}) {
-	return config.NilParser, nil
+	name string, args string) {
+	return config.NilParser, ""
 }
 
 type FuncParser struct {
@@ -41,13 +41,13 @@ type FuncParser struct {
 }
 
 func (f *FuncParser) Parse(
-	contents []byte, url string) pb.ProcessResult {
+	contents []byte, url string) ParseResult {
 	return f.parser(contents, url)
 }
 
 func (f *FuncParser) Serialize() (
-	name string, args interface{}) {
-	return f.name, nil
+	name string, args string) {
+	return f.name, ""
 }
 
 func NewFuncParser(
