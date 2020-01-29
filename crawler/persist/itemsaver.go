@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"log"
+	pb "reptiles/crawler_distributed/proto"
 
 	"github.com/olivere/elastic/v7"
-	"reptiles/crawler/engine"
 )
 
 func ItemSaver(
-	index string) (chan engine.Item, error) {
+	index string) (chan pb.Item, error) {
 	client, err := elastic.NewClient(
 		// Must turn off sniff in docker
 		elastic.SetSniff(false))
@@ -19,7 +19,7 @@ func ItemSaver(
 		return nil, err
 	}
 
-	out := make(chan engine.Item)
+	out := make(chan pb.Item)
 	go func() {
 		itemCount := 0
 		for {
@@ -28,7 +28,7 @@ func ItemSaver(
 				"#%d: %v", itemCount, item)
 			itemCount++
 
-			err := Save(client, index, item)
+			err := Save(client, index, &item)
 			if err != nil {
 				log.Printf("Item Saver: error "+
 					"saving item %v: %v",
@@ -42,7 +42,7 @@ func ItemSaver(
 
 func Save(
 	client *elastic.Client, index string,
-	item engine.Item) error {
+	item *pb.Item) error {
 
 	if item.Type == "" {
 		return errors.New("must supply Type")

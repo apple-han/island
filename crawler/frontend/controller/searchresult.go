@@ -5,12 +5,12 @@ import (
 	"net/http"
 	"reflect"
 	"regexp"
+	pb "reptiles/crawler_distributed/proto"
 	"strconv"
 	"strings"
 
 	"github.com/olivere/elastic/v7"
 	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
 	"reptiles/crawler/frontend/model"
 	"reptiles/crawler/frontend/view"
 )
@@ -81,7 +81,7 @@ func (h SearchResultHandler) getSearchResult(
 	result.Hits = resp.TotalHits()
 	result.Start = from
 	result.Items = resp.Each(
-		reflect.TypeOf(engine.Item{}))
+		reflect.TypeOf(pb.Item{}))
 	if result.Start == 0 {
 		result.PrevFrom = -1
 	} else {

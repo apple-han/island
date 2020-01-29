@@ -47,7 +47,7 @@ func main() {
 
 	e := engine.ConcurrentEngine{
 		Scheduler:        &scheduler.QueuedScheduler{},
-		WorkerCount:      100,
+		WorkerCount:      1,
 		ItemChan:         itemChan,
 		RequestProcessor: processor,
 	}
@@ -61,12 +61,12 @@ func main() {
 }
 
 func createClientPool(
-	hosts []string) (chan *pb.ReptilesClient, error) {
-	var clients []*pb.ReptilesClient
+	hosts []string) (chan pb.ReptilesClient, error) {
+	var clients []pb.ReptilesClient
 	for _, h := range hosts {
 		client, err := rpcsupport.NewClient(h)
 		if err == nil {
-			clients = append(clients, &client)
+			clients = append(clients, client)
 			log.Printf("Connected to %s", h)
 		} else {
 			log.Printf(
@@ -79,7 +79,7 @@ func createClientPool(
 		return nil, errors.New(
 			"no connections available")
 	}
-	out := make(chan *pb.ReptilesClient)
+	out := make(chan pb.ReptilesClient)
 	go func() {
 		for {
 			for _, client := range clients {

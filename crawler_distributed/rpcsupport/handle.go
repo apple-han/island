@@ -2,6 +2,7 @@ package rpcsupport
 
 import (
 	"context"
+	"fmt"
 	"github.com/olivere/elastic/v7"
 	"log"
 	"reptiles/crawler/engine"
@@ -11,14 +12,16 @@ import (
 )
 
 
-type ItemSaverService struct {
+type RPCService struct {
 	Client *elastic.Client
 	Index  string
 }
 
 
-func (s *ItemSaverService) Process(
+func (s *RPCService) Process(
 	ctx context.Context, req *pb.ProcessRequest)(*pb.ProcessResult,error){
+
+		fmt.Println("here is already")
 	engineReq, err := t.DeserializeRequest(req)
 	if err != nil {
 		return nil, err
@@ -33,13 +36,14 @@ func (s *ItemSaverService) Process(
 }
 
 
-func (s *ItemSaverService) SaveItem(
+func (s *RPCService) SaveItem(
 	ctx context.Context, item *pb.SaveItemRequest) (*pb.SaveItemResult, error) {
-	err := persist.Save(s.Client, s.Index, item)
+	err := persist.Save(s.Client, s.Index, item.Item)
 	log.Printf("Item %v saved.", item)
 	if err != nil {
 		log.Printf("Error saving item %v: %v",
 			item, err)
 	}
+	fmt.Println("err Item is --->", err)
 	return nil, err
 }

@@ -3,10 +3,10 @@ package parser
 import (
 	"fmt"
 	"regexp"
+	pb "reptiles/crawler_distributed/proto"
 	"strconv"
 
 	"reptiles/crawler/engine"
-	"reptiles/crawler/model"
 )
 
 var priceReTmpl = `<a href="/%s/baojia/".*>(\d+\.\d+)</a>`
@@ -25,7 +25,7 @@ var urlRe = regexp.MustCompile(`http://newcar.xcar.com.cn/(m\d+)/`)
 func ParseCarDetail(contents []byte, url string) engine.ParseResult {
 	id := extractString([]byte(url), urlRe)
 
-	car := model.Car{
+	car := pb.Car{
 		Name:         extractString(contents, nameRe),
 		ImageURL:     "http:" + extractString(contents, carImageRe),
 		Size:         extractString(contents, sizeRe),
@@ -44,12 +44,12 @@ func ParseCarDetail(contents []byte, url string) engine.ParseResult {
 	}
 
 	result := engine.ParseResult{
-		Items: []engine.Item{
+		Items: []*pb.Item{
 			{
 				Id:      id,
 				Url:     url,
 				Type:    "xcar",
-				Payload: car,
+				Car:     &car,
 			},
 		},
 	}
@@ -71,10 +71,10 @@ func extractString(
 	}
 }
 
-func extractFloat(contents []byte, re *regexp.Regexp) float64 {
+func extractFloat(contents []byte, re *regexp.Regexp) float32 {
 	f, err := strconv.ParseFloat(extractString(contents, re), 64)
 	if err != nil {
 		return 0
 	}
-	return f
+	return float32(f)
 }

@@ -2,11 +2,11 @@ package parser
 
 import (
 	"regexp"
+	pb "reptiles/crawler_distributed/proto"
 	"strconv"
 
 	"reptiles/crawler/config"
 	"reptiles/crawler/engine"
-	"reptiles/crawler/model"
 )
 
 var ageRe = regexp.MustCompile(
@@ -41,25 +41,25 @@ var idUrlRe = regexp.MustCompile(
 func parseProfile(
 	contents []byte, url string,
 	name string) engine.ParseResult {
-	profile := model.Profile{}
+	profile := pb.Profile{}
 	profile.Name = name
 
 	age, err := strconv.Atoi(
 		extractString(contents, ageRe))
 	if err == nil {
-		profile.Age = age
+		profile.Age = int32(age)
 	}
 
 	height, err := strconv.Atoi(
 		extractString(contents, heightRe))
 	if err == nil {
-		profile.Height = height
+		profile.Height = int32(height)
 	}
 
 	weight, err := strconv.Atoi(
 		extractString(contents, weightRe))
 	if err == nil {
-		profile.Weight = weight
+		profile.Weight = int32(weight)
 	}
 
 	profile.Income = extractString(
@@ -82,13 +82,13 @@ func parseProfile(
 		contents, xinzuoRe)
 
 	result := engine.ParseResult{
-		Items: []engine.Item{
+		Items: []*pb.Item{
 			{
 				Url:  url,
 				Type: "zhenai",
 				Id: extractString(
 					[]byte(url), idUrlRe),
-				Payload: profile,
+				Payload: &profile,
 			},
 		},
 	}

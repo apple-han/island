@@ -7,7 +7,6 @@ import (
 
 	"github.com/olivere/elastic/v7"
 	"reptiles/crawler/config"
-	"reptiles/crawler_distributed/persist"
 	"reptiles/crawler_distributed/rpcsupport"
 )
 
@@ -33,7 +32,7 @@ func serveRpc(host, index string) error {
 	}
 
 	return rpcsupport.ServeRpc(host,
-		&persist.ItemSaverService{
+		&rpcsupport.RPCService{
 			Client: client,
 			Index:  index,
 		})

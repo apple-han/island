@@ -22,5 +22,5 @@ func main() {
 	}
 	log.Fatal(rpcsupport.ServeRpc(
 		fmt.Sprintf(":%d", *port),
-		&rpcsupport.ItemSaverService{}))
+		&rpcsupport.RPCService{}))
 }
