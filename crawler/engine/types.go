@@ -1,13 +1,16 @@
 package engine
 
-import "reptiles/crawler/config"
+import (
+	"reptiles/crawler/config"
+	pb "reptiles/crawler_distributed/proto"
+)
 
 type ParserFunc func(
-	contents []byte, url string) ParseResult
+	contents []byte, url string) pb.ProcessResult
 
 type Parser interface {
-	Parse(contents []byte, url string) ParseResult
-	Serialize() (name string, args interface{})
+	Parse(contents []byte, url string) pb.ProcessResult
+	Serialize() (name string, args string)
 }
 
 type Request struct {
@@ -15,23 +18,11 @@ type Request struct {
 	Parser Parser
 }
 
-type ParseResult struct {
-	Requests []Request
-	Items    []Item
-}
-
-type Item struct {
-	Url     string
-	Type    string
-	Id      string
-	Payload interface{}
-}
-
 type NilParser struct{}
 
 func (NilParser) Parse(
-	_ []byte, _ string) ParseResult {
-	return ParseResult{}
+	_ []byte, _ string) pb.ProcessResult {
+	return pb.ProcessResult{}
 }
 
 func (NilParser) Serialize() (
@@ -45,7 +36,7 @@ type FuncParser struct {
 }
 
 func (f *FuncParser) Parse(
-	contents []byte, url string) ParseResult {
+	contents []byte, url string) pb.ProcessResult {
 	return f.parser(contents, url)
 }
 

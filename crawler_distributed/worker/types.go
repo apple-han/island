@@ -13,26 +13,12 @@ import (
 	pb "reptiles/crawler_distributed/proto"
 )
 
-type SerializedParser struct {
-	Name string
-	Args interface{}
-}
 
-type Request struct {
-	Url    string
-	Parser SerializedParser
-}
-
-type ParseResult struct {
-	Items    []engine.Item
-	Requests []Request
-}
-
-func SerializeRequest(r engine.Request) Request {
+func SerializeRequest(r engine.Request) *pb.ProcessRequest {
 	name, args := r.Parser.Serialize()
-	return Request{
+	return &pb.ProcessRequest{
 		Url: r.Url,
-		Parser: SerializedParser{
+		SerializedParser: &pb.SerializedParser{
 			Name: name,
 			Args: args,
 		},
@@ -40,13 +26,13 @@ func SerializeRequest(r engine.Request) Request {
 }
 
 func SerializeResult(
-	r engine.ParseResult) ParseResult {
-	result := ParseResult{
-		Items: r.Items,
+	r pb.ProcessResult) pb.ProcessResult {
+	result := pb.ProcessResult{
+		Item: r.Item,
 	}
 
-	for _, req := range r.Requests {
-		result.Requests = append(result.Requests,
+	for _, req := range r.Request {
+		result.Request = append(result.Request,
 			SerializeRequest(req))
 	}
 	return result
@@ -78,7 +64,7 @@ func DeserializeResult(
 			continue
 		}
 		result.Request = append(result.Request,
-			&engineReq)
+			engineReq)
 	}
 	return result
 }
