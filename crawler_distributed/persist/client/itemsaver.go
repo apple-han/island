@@ -1,7 +1,9 @@
 package client
 
 import (
+	"context"
 	"log"
+	pb "reptiles/crawler_distributed/proto"
 
 	"reptiles/crawler/engine"
 	"reptiles/crawler_distributed/config"
@@ -25,8 +27,9 @@ func ItemSaver(
 
 			// Call RPC to save item
 			result := ""
-			err := client.Call(
-				config.ItemSaverRpc,
+			err := client.SaveItem(
+				context.Background(),
+				pb.SaveItemRequest{},
 				item, &result)
 
 			if err != nil {

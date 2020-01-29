@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package go.grpc.srv.reptiles;
+
+service reptiles {
+    rpc SaveItem(SaveItemRequest) returns (SaveItemResult) {}
+    rpc Process(ProcessRequest) returns (ProcessResult) {}
+}
+
+message SaveItemRequest{
+    Item item = 1;
+}
+message SaveItemResult{}
+
+
+message ProcessRequest{
+    string url = 1;
+    SerializedParser serializedParser = 2;
+}
+
+message SerializedParser {
+    string name = 1;
+    string args = 2;
+}
+
+message ProcessResult{
+	repeated Item item = 1;
+	repeated ProcessRequest request = 2;
+}
+
+message Item {
+    string url = 1;
+    string type = 2;
+    string id = 3;
+    string Payload = 4;
+}

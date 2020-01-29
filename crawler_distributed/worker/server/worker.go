@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	pb "reptiles/crawler_distributed/proto"
 
 	"log"
 
@@ -24,5 +25,5 @@ func main() {
 	}
 	log.Fatal(rpcsupport.ServeRpc(
 		fmt.Sprintf(":%d", *port),
-		worker.CrawlService{}))
+		pb.SaveItemRequest{}))
 }

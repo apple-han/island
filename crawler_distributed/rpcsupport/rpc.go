@@ -1,41 +1,38 @@
 package rpcsupport
 
 import (
+	"google.golang.org/grpc"
 	"log"
 	"net"
-	"net/rpc"
-	"net/rpc/jsonrpc"
+	pb "reptiles/crawler_distributed/proto"
 )
 
 func ServeRpc(
-	host string, service interface{}) error {
-	if err := rpc.Register(service); err != nil{
-		log.Printf("register error: %v", err)
-		return err
-	}
+	host string, service pb.ReptilesServer) error {
+
+	Server := grpc.NewServer()
+	pb.RegisterReptilesServer(Server, service)
 
 	listener, err := net.Listen("tcp", host)
 	if err != nil {
-		return err
+		log.Fatalf("failed to listen: %v", err)
 	}
 	log.Printf("Listening on %s", host)
 
 	for {
-		conn, err := listener.Accept()
-		if err != nil {
-			log.Printf("accept error: %v", err)
-			continue
-		}
-
-		go jsonrpc.ServeConn(conn)
+		go func() {
+			if err := Server.Serve(listener);err != nil{
+				log.Fatalf("failed to listen: %v", err)
+			}
+		}()
 	}
 }
 
-func NewClient(host string) (*rpc.Client, error) {
-	conn, err := net.Dial("tcp", host)
+func NewClient(host string) (pb.ReptilesClient, error) {
+	conn, err := grpc.Dial(host)
 	if err != nil {
 		return nil, err
 	}
-
-	return jsonrpc.NewClient(conn), nil
+	client := pb.NewReptilesClient(conn)
+	return client, nil
 }
