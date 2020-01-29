@@ -4,19 +4,18 @@ import (
 	"context"
 	"log"
 	pb "reptiles/crawler_distributed/proto"
+	"time"
 
-	"reptiles/crawler/engine"
-	"reptiles/crawler_distributed/config"
 	"reptiles/crawler_distributed/rpcsupport"
 )
 
 func ItemSaver(
-	host string) (chan engine.Item, error) {
-	client, err := rpcsupport.NewClient(host)
+	host string) (chan pb.Item, error) {
+	c, err := rpcsupport.NewClient(host)
 	if err != nil {
 		return nil, err
 	}
-	out := make(chan engine.Item)
+	out := make(chan pb.Item)
 	go func() {
 		itemCount := 0
 		for {
@@ -26,11 +25,9 @@ func ItemSaver(
 			itemCount++
 
 			// Call RPC to save item
-			result := ""
-			err := client.SaveItem(
-				context.Background(),
-				pb.SaveItemRequest{},
-				item, &result)
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			defer cancel()
+			_, err := c.SaveItem(ctx, &pb.SaveItemRequest{Item: &item})
 
 			if err != nil {
 				log.Printf("Item Saver: error "+

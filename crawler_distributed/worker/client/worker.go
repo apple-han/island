@@ -1,29 +1,34 @@
 package client
 
 import (
-	"net/rpc"
+	"context"
+	pb "reptiles/crawler_distributed/proto"
+	"time"
 
 	"reptiles/crawler/engine"
-	"reptiles/crawler_distributed/config"
 	"reptiles/crawler_distributed/worker"
 )
 
 func CreateProcessor(
-	clientChan chan *rpc.Client) engine.Processor {
+	clientChan chan *pb.ReptilesClient) engine.Processor {
 	return func(
 		req engine.Request) (
 		engine.ParseResult, error) {
 
 		sReq := worker.SerializeRequest(req)
 
-		var sResult worker.ParseResult
+		var sResult pb.ProcessResult
 		c := <-clientChan
-		err := c.Call(config.CrawlServiceRpc,
-			sReq, &sResult)
 
+		// Call RPC to send work
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
+		_, err := (*c).Process(ctx, &pb.ProcessRequest{
+			Url: sReq.Url, SerializedParser: sReq.SerializedParser})
 		if err != nil {
 			return engine.ParseResult{}, err
 		}
+
 		return worker.DeserializeResult(sResult),
 			nil
 	}

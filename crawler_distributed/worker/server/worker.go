@@ -2,15 +2,12 @@ package main
 
 import (
 	"fmt"
-	pb "reptiles/crawler_distributed/proto"
-
 	"log"
 
 	"flag"
 
 	"reptiles/crawler/fetcher"
 	"reptiles/crawler_distributed/rpcsupport"
-	"reptiles/crawler_distributed/worker"
 )
 
 var port = flag.Int("port", 0,
@@ -25,5 +22,5 @@ func main() {
 	}
 	log.Fatal(rpcsupport.ServeRpc(
 		fmt.Sprintf(":%d", *port),
-		pb.SaveItemRequest{}))
+		&rpcsupport.ItemSaverService{}))
 }

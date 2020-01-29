@@ -17,33 +17,29 @@ type ItemSaverService struct {
 }
 
 
-func (ItemSaverService) Process(
-	ctx context.Context, req *pb.ProcessRequest,
-	result *pb.ProcessResult) error {
+func (s *ItemSaverService) Process(
+	ctx context.Context, req *pb.ProcessRequest)(*pb.ProcessResult,error){
 	engineReq, err := t.DeserializeRequest(req)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	engineResult, err := engine.Worker(engineReq)
 	if err != nil {
-		return err
+		return nil, err
 	}
-
-	*result = t.SerializeResult(engineResult)
-	return nil
+	var result = t.SerializeResult(engineResult)
+	return &result, nil
 }
 
 
-func (s *ItemSaverService) Save(
-	item pb.Item, result *string) error {
+func (s *ItemSaverService) SaveItem(
+	ctx context.Context, item *pb.SaveItemRequest) (*pb.SaveItemResult, error) {
 	err := persist.Save(s.Client, s.Index, item)
 	log.Printf("Item %v saved.", item)
-	if err == nil {
-		*result = "ok"
-	} else {
+	if err != nil {
 		log.Printf("Error saving item %v: %v",
 			item, err)
 	}
-	return err
+	return nil, err
 }

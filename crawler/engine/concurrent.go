@@ -1,9 +1,11 @@
 package engine
 
+import pb "reptiles/crawler_distributed/proto"
+
 type ConcurrentEngine struct {
 	Scheduler        Scheduler
 	WorkerCount      int
-	ItemChan         chan Item
+	ItemChan         chan pb.Item
 	RequestProcessor Processor
 }
 
@@ -38,9 +40,9 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 	for {
 		result := <-out
 		for _, item := range result.Items {
-			go func(i Item) {
+			go func(i pb.Item) {
 				e.ItemChan <- i
-			}(item)
+			}(*item)
 		}
 
 		for _, request := range result.Requests {

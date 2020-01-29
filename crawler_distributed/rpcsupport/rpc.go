@@ -8,7 +8,7 @@ import (
 )
 
 func ServeRpc(
-	host string, service interface{}) error {
+	host string, service pb.ReptilesServer) error {
 
 	Server := grpc.NewServer()
 	pb.RegisterReptilesServer(Server, service)
