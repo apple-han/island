@@ -16,20 +16,18 @@ func CreateProcessor(
 		engine.ParseResult, error) {
 
 		sReq := worker.SerializeRequest(req)
-
-		var sResult pb.ProcessResult
 		c := <-clientChan
 
 		// Call RPC to send work
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		defer cancel()
-		_, err := (*c).Process(ctx, &pb.ProcessRequest{
+		sResult, err := (*c).Process(ctx, &pb.ProcessRequest{
 			Url: sReq.Url, SerializedParser: sReq.SerializedParser})
 		if err != nil {
 			return engine.ParseResult{}, err
 		}
 
-		return worker.DeserializeResult(sResult),
+		return worker.DeserializeResult(*sResult),
 			nil
 	}
 }
