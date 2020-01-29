@@ -26,8 +26,8 @@ func SerializeRequest(r engine.Request) *pb.ProcessRequest {
 }
 
 func SerializeResult(
-	r pb.ProcessResult) pb.ProcessResult {
-	result := pb.ProcessResult{
+	r engine.ParseResult) pb.ProcessResult {
+	result := engine.ParseResult{
 		Item: r.Item,
 	}
 

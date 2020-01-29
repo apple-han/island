@@ -18,6 +18,11 @@ type Request struct {
 	Parser Parser
 }
 
+type ParseResult struct {
+	Requests []Request
+	Items    []pb.Item
+}
+
 type NilParser struct{}
 
 func (NilParser) Parse(
