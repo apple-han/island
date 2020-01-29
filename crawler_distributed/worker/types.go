@@ -10,6 +10,7 @@ import (
 	"reptiles/crawler/engine"
 	xcar "reptiles/crawler/xcar/parser"
 	zhenai "reptiles/crawler/zhenai/parser"
+	pb "reptiles/crawler_distributed/proto"
 )
 
 type SerializedParser struct {
@@ -52,38 +53,38 @@ func SerializeResult(
 }
 
 func DeserializeRequest(
-	r Request) (engine.Request, error) {
-	parser, err := deserializeParser(r.Parser)
+	r *pb.ProcessRequest) (pb.ProcessRequest, error) {
+	parser, err := deserializeParser(r.SerializedParser)
 	if err != nil {
-		return engine.Request{}, err
+		return pb.ProcessRequest{}, err
 	}
-	return engine.Request{
+	return pb.ProcessRequest{
 		Url:    r.Url,
-		Parser: parser,
+		SerializedParser: parser,
 	}, nil
 }
 
 func DeserializeResult(
-	r ParseResult) engine.ParseResult {
-	result := engine.ParseResult{
-		Items: r.Items,
+	r pb.ProcessResult) pb.ProcessResult {
+	result := pb.ProcessResult{
+		Item: r.Item,
 	}
 
-	for _, req := range r.Requests {
+	for _, req := range r.Request {
 		engineReq, err := DeserializeRequest(req)
 		if err != nil {
 			log.Printf("error deserializing "+
 				"request: %v", err)
 			continue
 		}
-		result.Requests = append(result.Requests,
-			engineReq)
+		result.Request = append(result.Request,
+			&engineReq)
 	}
 	return result
 }
 
 func deserializeParser(
-	p SerializedParser) (engine.Parser, error) {
+	p *pb.SerializedParser) (engine.Parser, error) {
 	switch p.Name {
 	case config.ParseCityList:
 		return engine.NewFuncParser(
