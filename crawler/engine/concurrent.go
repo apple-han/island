@@ -66,6 +66,7 @@ func (e *ConcurrentEngine) createWorker(
 			if err != nil {
 				continue
 			}
+			// 这里是获取的结果
 			out <- result
 		}
 	}()

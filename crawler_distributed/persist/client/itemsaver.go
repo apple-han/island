@@ -2,7 +2,6 @@ package client
 
 import (
 	"context"
-	"fmt"
 	"log"
 	pb "reptiles/crawler_distributed/proto"
 	"time"
@@ -22,7 +21,7 @@ func ItemSaver(
 		for {
 			item := <-out
 			log.Printf("Item Saver: got item "+
-				"#%d: %v", itemCount, item)
+				"#%d: %s", itemCount, item.Car)
 			itemCount++
 
 			// Call RPC to save item
@@ -34,10 +33,7 @@ func ItemSaver(
 				log.Printf("Item Saver: error "+
 					"saving item %v: %v",
 					item, err)
-
-				fmt.Println("err main is --->", err)
-			}
-
+				}
 		}
 	}()
 
