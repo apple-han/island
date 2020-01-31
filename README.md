@@ -3,7 +3,7 @@
 - 项目的思路来自于慕课网的ccmouse老师[链接](https://coding.imooc.com/learn/list/180.html)
 - 微服务教程[学习吧](https://study.163.com/course/courseMain.htm?courseId=1209482821)
 ## 技术栈
-Go, Protobuf, Consul, Docker, Elasticsearch
+**Go, Protobuf, Consul, Docker, Elasticsearch**
 ### 必须要做的
 - git clone https://github.com/apple-han/island.git
 - cd island
@@ -11,20 +11,29 @@ Go, Protobuf, Consul, Docker, Elasticsearch
 
 ### Docker的方式部署
 - cd crawler_distributed/persist
-    - make build
-    - make docker
+
+    ``` 
+    make build
+    make docker 
+    ```
     
 - cd crawler_distributed/worker
-    - make build
-    - make docker
+    ``` 
+    make build
+    make docker 
+    ```
     
 - cd crawler_distributed
-    - make build
-    - make docker
+   ``` 
+   make build
+   make docker 
+   ```
     
 - cd crawler/frontend
-    - make build
-    - make docker
+     ``` 
+     make build
+     make docker 
+     ```
     
 - cd island  
 - docker-compose up -d
