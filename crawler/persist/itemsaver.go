@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 	"log"
-	pb "reptiles/crawler_distributed/proto"
-	"reptiles/crawler_distributed/config"
+	pb "island/crawler_distributed/proto"
+	"island/crawler_distributed/config"
 	"github.com/olivere/elastic/v7"
 )
 

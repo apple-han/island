@@ -3,8 +3,8 @@ package parser
 import (
 	"regexp"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
+	"island/crawler/config"
+	"island/crawler/engine"
 )
 
 const host = "http://newcar.xcar.com.cn"

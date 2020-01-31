@@ -3,7 +3,7 @@ package engine
 import (
 	"log"
 
-	"reptiles/crawler/fetcher"
+	"island/crawler/fetcher"
 )
 
 func Worker(r Request) (ParseResult, error) {

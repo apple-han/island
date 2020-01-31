@@ -5,10 +5,10 @@ import (
 
 	"time"
 
-	"reptiles/crawler/engine"
-	"reptiles/crawler/model"
-	"reptiles/crawler_distributed/config"
-	"reptiles/crawler_distributed/rpcsupport"
+	"island/crawler/engine"
+	"island/crawler/model"
+	"island/crawler_distributed/config"
+	"island/crawler_distributed/rpcsupport"
 )
 
 func TestItemSaver(t *testing.T) {

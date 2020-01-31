@@ -5,11 +5,11 @@ import (
 
 	"log"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
-	xcar "reptiles/crawler/xcar/parser"
-	zhenai "reptiles/crawler/zhenai/parser"
-	pb "reptiles/crawler_distributed/proto"
+	"island/crawler/config"
+	"island/crawler/engine"
+	xcar "island/crawler/xcar/parser"
+	zhenai "island/crawler/zhenai/parser"
+	pb "island/crawler_distributed/proto"
 )
 
 

@@ -1,6 +1,6 @@
 package engine
 
-import pb "reptiles/crawler_distributed/proto"
+import pb "island/crawler_distributed/proto"
 
 type ConcurrentEngine struct {
 	Scheduler        Scheduler

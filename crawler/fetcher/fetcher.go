@@ -14,7 +14,7 @@ import (
 	"golang.org/x/text/encoding"
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
-	"reptiles/crawler/config"
+	"island/crawler/config"
 )
 
 var (

@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"reptiles/crawler/engine"
-	"reptiles/crawler/model"
+	"island/crawler/engine"
+	"island/crawler/model"
 )
 
 func TestParseCarDetail(t *testing.T) {

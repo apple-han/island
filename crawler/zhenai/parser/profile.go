@@ -2,11 +2,11 @@ package parser
 
 import (
 	"regexp"
-	pb "reptiles/crawler_distributed/proto"
+	pb "island/crawler_distributed/proto"
 	"strconv"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
+	"island/crawler/config"
+	"island/crawler/engine"
 )
 
 var ageRe = regexp.MustCompile(

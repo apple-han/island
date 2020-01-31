@@ -5,15 +5,15 @@ import (
 	"net/http"
 	"reflect"
 	"regexp"
-	c "reptiles/crawler_distributed/config"
-	pb "reptiles/crawler_distributed/proto"
+	c "island/crawler_distributed/config"
+	pb "island/crawler_distributed/proto"
 	"strconv"
 	"strings"
 
 	"github.com/olivere/elastic/v7"
-	"reptiles/crawler/config"
-	"reptiles/crawler/frontend/model"
-	"reptiles/crawler/frontend/view"
+	"island/crawler/config"
+	"island/crawler/frontend/model"
+	"island/crawler/frontend/view"
 )
 
 type SearchResultHandler struct {

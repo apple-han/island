@@ -1,6 +1,6 @@
 package scheduler
 
-import "reptiles/crawler/engine"
+import "island/crawler/engine"
 
 type SimpleScheduler struct {
 	workerChan chan engine.Request

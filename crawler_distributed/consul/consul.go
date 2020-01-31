@@ -5,7 +5,7 @@ import (
 	"github.com/hashicorp/consul/api"
 	"log"
 	"net"
-	c "reptiles/crawler_distributed/config"
+	c "island/crawler_distributed/config"
 	"strconv"
 )
 

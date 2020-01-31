@@ -1,11 +1,11 @@
 package main
 
 import (
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
-	"reptiles/crawler/persist"
-	"reptiles/crawler/scheduler"
-	"reptiles/crawler/xcar/parser"
+	"island/crawler/config"
+	"island/crawler/engine"
+	"island/crawler/persist"
+	"island/crawler/scheduler"
+	"island/crawler/xcar/parser"
 )
 
 func main() {

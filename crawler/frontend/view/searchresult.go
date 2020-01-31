@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"io"
 
-	"reptiles/crawler/frontend/model"
+	"island/crawler/frontend/model"
 )
 
 type SearchResultView struct {

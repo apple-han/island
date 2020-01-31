@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"reptiles/crawler_distributed/rpcsupport"
+	"island/crawler_distributed/rpcsupport"
 
 	"flag"
 
-	"reptiles/crawler/fetcher"
+	"island/crawler/fetcher"
 )
 
 var (

@@ -3,12 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/olivere/elastic/v7"
+	"island/crawler/config"
+	c "island/crawler_distributed/config"
+	"island/crawler_distributed/rpcsupport"
 	"log"
 	"net/http"
-	"reptiles/crawler/config"
-	c "reptiles/crawler_distributed/config"
-	"github.com/olivere/elastic/v7"
-	"reptiles/crawler_distributed/rpcsupport"
 )
 
 var port = flag.Int("port", 0,

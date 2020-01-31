@@ -2,18 +2,18 @@ package main
 
 import (
 	"errors"
-	"reptiles/crawler_distributed/consul"
-	pb "reptiles/crawler_distributed/proto"
+	"island/crawler_distributed/consul"
+	pb "island/crawler_distributed/proto"
 
 	"log"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
-	"reptiles/crawler/scheduler"
-	"reptiles/crawler/xcar/parser"
-	itemsaver "reptiles/crawler_distributed/persist/client"
-	"reptiles/crawler_distributed/rpcsupport"
-	worker "reptiles/crawler_distributed/worker/client"
+	"island/crawler/config"
+	"island/crawler/engine"
+	"island/crawler/scheduler"
+	"island/crawler/xcar/parser"
+	itemsaver "island/crawler_distributed/persist/client"
+	"island/crawler_distributed/rpcsupport"
+	worker "island/crawler_distributed/worker/client"
 )
 
 func main() {

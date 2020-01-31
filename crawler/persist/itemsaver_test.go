@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/olivere/elastic/v7"
-	"reptiles/crawler/engine"
-	"reptiles/crawler/model"
+	"island/crawler/engine"
+	"island/crawler/model"
 )
 
 func TestSave(t *testing.T) {

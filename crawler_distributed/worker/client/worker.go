@@ -2,11 +2,11 @@ package client
 
 import (
 	"context"
-	pb "reptiles/crawler_distributed/proto"
+	pb "island/crawler_distributed/proto"
 	"time"
 
-	"reptiles/crawler/engine"
-	"reptiles/crawler_distributed/worker"
+	"island/crawler/engine"
+	"island/crawler_distributed/worker"
 )
 
 func CreateProcessor(

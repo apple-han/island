@@ -4,9 +4,9 @@ import (
 	"os"
 	"testing"
 
-	"reptiles/crawler/engine"
-	"reptiles/crawler/frontend/model"
-	common "reptiles/crawler/model"
+	"island/crawler/engine"
+	"island/crawler/frontend/model"
+	common "island/crawler/model"
 )
 
 func TestSearchResultView_Render(t *testing.T) {

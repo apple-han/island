@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"reptiles/crawler/config"
-	pb "reptiles/crawler_distributed/proto"
+	"island/crawler/config"
+	pb "island/crawler_distributed/proto"
 )
 
 type ParserFunc func(

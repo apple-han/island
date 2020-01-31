@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"reptiles/crawler/config"
-	rpcnames "reptiles/crawler_distributed/config"
-	"reptiles/crawler_distributed/rpcsupport"
-	"reptiles/crawler_distributed/worker"
+	"island/crawler/config"
+	rpcnames "island/crawler_distributed/config"
+	"island/crawler_distributed/rpcsupport"
+	"island/crawler_distributed/worker"
 )
 
 func TestCrawlService(t *testing.T) {

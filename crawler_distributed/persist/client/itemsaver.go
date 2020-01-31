@@ -3,10 +3,10 @@ package client
 import (
 	"context"
 	"log"
-	pb "reptiles/crawler_distributed/proto"
+	pb "island/crawler_distributed/proto"
 	"time"
 
-	"reptiles/crawler_distributed/rpcsupport"
+	"island/crawler_distributed/rpcsupport"
 )
 
 func ItemSaver(

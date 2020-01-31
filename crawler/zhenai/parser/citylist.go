@@ -3,8 +3,8 @@ package parser
 import (
 	"regexp"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
+	"island/crawler/config"
+	"island/crawler/engine"
 )
 
 const cityListRe = `<a href="(http://www.zhenai.com/zhenghun/[0-9a-z]+)"[^>]*>([^<]+)</a>`

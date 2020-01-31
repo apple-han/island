@@ -3,8 +3,8 @@ package parser
 import (
 	"regexp"
 
-	"reptiles/crawler/config"
-	"reptiles/crawler/engine"
+	"island/crawler/config"
+	"island/crawler/engine"
 )
 
 var carDetailRe = regexp.MustCompile(`<a href="(/m\d+/)" target="_blank"`)

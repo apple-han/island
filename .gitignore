@@ -23,6 +23,7 @@ ehthumbs.db
 Thumbs.db
 .idea
 *.iml
+crawler_distributed/client
 kompose
 crawler_distributed/worker/server/work
 crawler_distributed/persist/server/item

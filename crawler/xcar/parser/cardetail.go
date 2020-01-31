@@ -3,10 +3,10 @@ package parser
 import (
 	"fmt"
 	"regexp"
-	pb "reptiles/crawler_distributed/proto"
+	pb "island/crawler_distributed/proto"
 	"strconv"
 
-	"reptiles/crawler/engine"
+	"island/crawler/engine"
 )
 
 var priceReTmpl = `<a href="/%s/baojia/".*>(\d+\.\d+)</a>`

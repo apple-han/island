@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"reptiles/crawler/frontend/controller"
+	"island/crawler/frontend/controller"
 )
 
 func main() {
