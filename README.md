@@ -10,14 +10,14 @@
 - 全局搜索192.168.31.231 换成你主机的IP地址(这里因为有json文件,不好做全局的配置)
 
 ### Docker的方式部署
-- cd crawler_distributed/persist
+- cd crawler_distributed/persist/server
 
     ``` 
     make build
     make docker 
     ```
     
-- cd crawler_distributed/worker
+- cd crawler_distributed/worker/server
     ``` 
     make build
     make docker 
