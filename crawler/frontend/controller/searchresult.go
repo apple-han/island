@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"reflect"
 	"regexp"
+	c "reptiles/crawler_distributed/config"
 	pb "reptiles/crawler_distributed/proto"
 	"strconv"
 	"strings"
@@ -23,6 +24,7 @@ type SearchResultHandler struct {
 func CreateSearchResultHandler(
 	template string) SearchResultHandler {
 	client, err := elastic.NewClient(
+		elastic.SetURL(c.ElasticHost),
 		elastic.SetSniff(false))
 	if err != nil {
 		panic(err)

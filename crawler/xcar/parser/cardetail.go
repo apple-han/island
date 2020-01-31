@@ -52,20 +52,8 @@ func ParseCarDetail(contents []byte, url string) engine.ParseResult {
 			},
 		},
 	}
-
-	if len(result.Items) > 0 {
-		fmt.Println("here is done1---->",result.Items[0].Car.Name)
-	}
-
 	carModelResult := ParseCarModel(contents, url)
 	result.Requests = carModelResult.Requests
-
-	if len(result.Items) > 0 {
-		fmt.Println("here is done3---->",result.Items[0].Car.Name)
-	}
-	if len(result.Items) > 0 {
-		fmt.Println("here is done2-------",result.Items[0].Car)
-	}
 	return result
 }
 

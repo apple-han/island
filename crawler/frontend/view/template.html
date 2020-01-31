@@ -33,8 +33,8 @@
             <tbody>
             {{range .Items}}
             <tr>
-                <td><a href="{{.Url}}">{{.Payload.Name}}</a></td>
-                {{with .Payload}}
+                <td><a href="{{.Url}}">{{.Car.Name}}</a></td>
+                {{with .Car}}
                 <td>{{.Name}}</td>
                 <td>{{.Price}}万元</td>
                 <td>{{.Size}}</td>

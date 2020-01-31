@@ -1,0 +1,75 @@
+{
+  "services": [
+    {
+      "id": "item",
+      "name": "item",
+      "tags": [
+        "saveItem"
+      ],
+      "address": "192.168.31.231",
+      "port": 1234,
+      "checks": [
+        {
+          "http": "http://192.168.31.231:8080/ping",
+          "tls_skip_verify": false,
+          "method": "GET",
+          "interval": "10s",
+          "timeout": "1s"
+        }
+      ]
+    },{
+      "id": "car",
+      "name": "car",
+      "tags": [
+        "carOne"
+      ],
+      "address": "192.168.31.231",
+      "port": 9001,
+      "checks": [
+        {
+          "http": "http://192.168.31.231:8081/ping",
+          "tls_skip_verify": false,
+          "method": "GET",
+          "interval": "10s",
+          "timeout": "1s"
+        }
+      ]
+    },{
+      "id": "cartwo",
+      "name": "car",
+      "tags": [
+        "carTwo"
+      ],
+      "address": "192.168.31.231",
+      "port": 9002,
+      "checks": [
+        {
+          "http": "http://192.168.31.231:8082/ping",
+          "tls_skip_verify": false,
+          "method": "GET",
+          "interval": "10s",
+          "timeout": "1s"
+        }
+      ]
+    },{
+      "id": "carthree",
+      "name": "car",
+      "tags": [
+        "carThree"
+      ],
+      "address": "192.168.31.231",
+      "port": 9003,
+      "checks": [
+        {
+          "http": "http://192.168.31.231:8083/ping",
+          "tls_skip_verify": false,
+          "method": "GET",
+          "interval": "10s",
+          "timeout": "1s"
+        }
+      ]
+    }
+
+  ]
+}
+

@@ -4,9 +4,10 @@ import (
 	"flag"
 	"fmt"
 	"log"
-
-	"github.com/olivere/elastic/v7"
+	"net/http"
 	"reptiles/crawler/config"
+	c "reptiles/crawler_distributed/config"
+	"github.com/olivere/elastic/v7"
 	"reptiles/crawler_distributed/rpcsupport"
 )
 
@@ -19,13 +20,26 @@ func main() {
 		fmt.Println("must specify a port")
 		return
 	}
-	log.Fatal(serveRpc(
-		fmt.Sprintf(":%d", *port),
-		config.ElasticIndex))
+	go func() {
+		log.Fatal(serveRpc(
+			fmt.Sprintf(":%d", *port),
+			config.ElasticIndex))
+	}()
+
+	http.HandleFunc("/ping", func(res http.ResponseWriter, req *http.Request){
+		_, err := res.Write([]byte("pong"));
+		if err != nil{
+			log.Fatal("write err--->",err)
+		}
+	})
+	if err := http.ListenAndServe(":8080", nil); err != nil{
+		log.Fatal("open http err--->",err)
+	}
 }
 
 func serveRpc(host, index string) error {
 	client, err := elastic.NewClient(
+		elastic.SetURL(c.ElasticHost),
 		elastic.SetSniff(false))
 	if err != nil {
 		return err

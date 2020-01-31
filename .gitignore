@@ -23,3 +23,7 @@ ehthumbs.db
 Thumbs.db
 .idea
 *.iml
+kompose
+crawler_distributed/worker/server/work
+crawler_distributed/persist/server/item
+crawler/frontend/frontend

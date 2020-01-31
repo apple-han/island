@@ -1,0 +1,114 @@
+version: '3'
+
+services:
+
+  consul:
+    image: consul:latest
+    container_name: c4
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./crawler_distributed/data:/etc/consul.d
+    command: "agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=s1 -bind=0.0.0.0 -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0"
+    networks:
+      dev:
+    logging:
+      options:
+        max-size: 50m
+
+  elastic-srv:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+    networks:
+      - default
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  item-srv:
+    image: item:latest
+    networks:
+      - default
+    command: "--port=1234"
+    ports:
+      - "1234:1234"
+      - "8080:8080"
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  work-srv:
+    image: work:latest
+    networks:
+      - default
+    command: "--port=9001 --httpPort=8081"
+    ports:
+      - "9001:9001"
+      - "8081:8081"
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  work-two-srv:
+    image: work:latest
+    networks:
+      - default
+    command: "--port=9002 --httpPort=8082"
+    ports:
+      - "9002:9002"
+      - "8082:8082"
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  work-three-srv:
+    image: work:latest
+    networks:
+      - default
+    command: "--port=9003 --httpPort=8083"
+    ports:
+      - "9003:9003"
+      - "8083:8083"
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  client-srv:
+    image: client:latest
+    networks:
+      - default
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+  frontend-srv:
+    image: frontend:latest
+    volumes:
+      - ./crawler/frontend:/frontend
+    ports:
+      - "8888:8888"
+    networks:
+      - default
+    restart: always
+    logging:
+      options:
+        max-size: 50m
+
+
+networks:
+  dev:
+    ipam:
+      driver: default
+      config:
+          - subnet: 172.17.0.0/16
+

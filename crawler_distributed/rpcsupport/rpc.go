@@ -4,7 +4,6 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"reptiles/crawler_distributed/config"
 	pb "reptiles/crawler_distributed/proto"
 )
 
@@ -26,8 +25,8 @@ func ServeRpc(
 	return nil
 }
 
-func NewClient(port string) (pb.ReptilesClient, error) {
-	conn, err := grpc.Dial(config.Host+port, grpc.WithInsecure())
+func NewClient(host string) (pb.ReptilesClient, error) {
+	conn, err := grpc.Dial(host, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
 	}

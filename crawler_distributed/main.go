@@ -2,13 +2,10 @@ package main
 
 import (
 	"errors"
+	"reptiles/crawler_distributed/consul"
 	pb "reptiles/crawler_distributed/proto"
 
 	"log"
-
-	"flag"
-
-	"strings"
 
 	"reptiles/crawler/config"
 	"reptiles/crawler/engine"
@@ -19,35 +16,28 @@ import (
 	worker "reptiles/crawler_distributed/worker/client"
 )
 
-var (
-	itemSaverHost = flag.String(
-		"itemsaver_host", "", "itemsaver host")
-
-	workerHosts = flag.String(
-		"worker_hosts", "",
-		"worker hosts (comma separated)")
-)
-
 func main() {
-	flag.Parse()
-
-	itemChan, err := itemsaver.ItemSaver(
-		*itemSaverHost)
-	if err != nil {
-		panic(err)
+	var (
+		itemChan chan pb.Item
+		err error
+	)
+	// 这里从服务发现中 发现地址
+	if len(consul.Find("item")) > 0{
+		itemChan, err = itemsaver.ItemSaver(consul.Find("item")[0])
+		if err != nil {
+			panic(err)
+		}
 	}
 
-	pool, err := createClientPool(
-		strings.Split(*workerHosts, ","))
+	pool, err := createClientPool(consul.Find("car"))
 	if err != nil {
 		panic(err)
 	}
 
 	processor := worker.CreateProcessor(pool)
-
 	e := engine.ConcurrentEngine{
 		Scheduler:        &scheduler.QueuedScheduler{},
-		WorkerCount:      1,
+		WorkerCount:      2,
 		ItemChan:         itemChan,
 		RequestProcessor: processor,
 	}

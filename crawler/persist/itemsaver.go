@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log"
 	pb "reptiles/crawler_distributed/proto"
-
+	"reptiles/crawler_distributed/config"
 	"github.com/olivere/elastic/v7"
 )
 
@@ -13,6 +13,7 @@ func ItemSaver(
 	index string) (chan pb.Item, error) {
 	client, err := elastic.NewClient(
 		// Must turn off sniff in docker
+		elastic.SetURL(config.ElasticHost),
 		elastic.SetSniff(false))
 
 	if err != nil {
