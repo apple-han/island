@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"island/crawler_distributed/consul"
+	"island/crawler_distributed/gredis"
 	pb "island/crawler_distributed/proto"
 
 	"log"
@@ -21,6 +22,7 @@ func main() {
 		itemChan chan pb.Item
 		err error
 	)
+	gredis.Setup()
 	// 这里从服务发现中 发现地址
 	if len(consul.Find("item")) > 0{
 		itemChan, err = itemsaver.ItemSaver(consul.Find("item")[0])

@@ -1,6 +1,10 @@
 package engine
 
-import pb "island/crawler_distributed/proto"
+import (
+	"island/crawler_distributed/bloom"
+	pb "island/crawler_distributed/proto"
+	"log"
+)
 
 type ConcurrentEngine struct {
 	Scheduler        Scheduler
@@ -31,6 +35,7 @@ func (e *ConcurrentEngine) Run(seeds ...Request) {
 	}
 
 	for _, r := range seeds {
+		// 去重
 		if isDuplicate(r.Url) {
 			continue
 		}
@@ -74,11 +79,28 @@ func (e *ConcurrentEngine) createWorker(
 
 var visitedUrls = make(map[string]bool)
 
+//func isDuplicate(url string) bool {
+//	if visitedUrls[url] {
+//		return true
+//	}
+//
+//	visitedUrls[url] = true
+//	return false
+//}
+
 func isDuplicate(url string) bool {
-	if visitedUrls[url] {
+	b, err := bloom.NewBloomFilter().IsContains(url)
+	if err != nil{
+		log.Println("IsContains failed:", err.Error())
+		return false
+	}
+	if b == 1{
 		return true
 	}
-
-	visitedUrls[url] = true
+	err = bloom.NewBloomFilter().Insert(url)
+	if err != nil{
+		log.Println("Insert failed:%s", err.Error())
+		return false
+	}
 	return false
 }

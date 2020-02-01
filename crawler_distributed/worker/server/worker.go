@@ -37,7 +37,6 @@ func main() {
 			log.Fatal("write err--->",err)
 		}
 	})
-	fmt.Println(`fmt.Sprintf(":%d", *httpPort)---`, fmt.Sprintf(":%d", *httpPort))
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", *httpPort), nil); err != nil{
 		log.Fatal("open http err--->",err)
 	}

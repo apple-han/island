@@ -10,8 +10,6 @@ services:
     volumes:
       - ./crawler_distributed/data:/etc/consul.d
     command: "agent -server -bootstrap-expect 1 -data-dir /tmp/consul -node=s1 -bind=0.0.0.0 -rejoin -config-dir=/etc/consul.d/ -client 0.0.0.0"
-    networks:
-      dev:
     logging:
       options:
         max-size: 50m
@@ -23,8 +21,6 @@ services:
       - "9300:9300"
     environment:
       - "discovery.type=single-node"
-    networks:
-      - default
     restart: always
     logging:
       options:
@@ -32,8 +28,6 @@ services:
 
   item-srv:
     image: item:latest
-    networks:
-      - default
     command: "--port=1234"
     ports:
       - "1234:1234"
@@ -45,8 +39,6 @@ services:
 
   work-srv:
     image: work:latest
-    networks:
-      - default
     command: "--port=9001 --httpPort=8081"
     ports:
       - "9001:9001"
@@ -58,8 +50,6 @@ services:
 
   work-two-srv:
     image: work:latest
-    networks:
-      - default
     command: "--port=9002 --httpPort=8082"
     ports:
       - "9002:9002"
@@ -71,8 +61,6 @@ services:
 
   work-three-srv:
     image: work:latest
-    networks:
-      - default
     command: "--port=9003 --httpPort=8083"
     ports:
       - "9003:9003"
@@ -84,9 +72,9 @@ services:
 
   client-srv:
     image: client:latest
-    networks:
-      - default
     restart: always
+    depends_on:
+      - redis
     logging:
       options:
         max-size: 50m
@@ -97,18 +85,20 @@ services:
       - ./crawler/frontend:/frontend
     ports:
       - "8888:8888"
-    networks:
-      - default
     restart: always
     logging:
       options:
         max-size: 50m
 
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./crawler_distributed/data/redis:/data
+    command: "redis-server"
+    logging:
+      options:
+        max-size: 50m
 
-networks:
-  dev:
-    ipam:
-      driver: default
-      config:
-          - subnet: 172.17.0.0/16
 

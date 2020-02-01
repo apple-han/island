@@ -27,4 +27,6 @@ crawler_distributed/client
 kompose
 crawler_distributed/worker/server/work
 crawler_distributed/persist/server/item
+crawler_distributed/data/redis
 crawler/frontend/frontend
+

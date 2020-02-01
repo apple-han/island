@@ -1,9 +1,9 @@
-# Go Distributed island
+# Go Distributed Reptile
 - 相信这个项目，对于学习分布式系统或者爬虫的你来说，帮助是巨大的。
 - 项目的思路来自于慕课网的ccmouse老师[链接](https://coding.imooc.com/learn/list/180.html)
 - 微服务教程[学习吧](https://study.163.com/course/courseMain.htm?courseId=1209482821)
 ## 技术栈
-**Go, Protobuf, Consul, Docker, Elasticsearch**
+**Go, Protobuf, Consul, Docker, Elasticsearch, BloomFilter**
 ### 必须要做的
 - git clone https://github.com/apple-han/island.git
 - cd island
@@ -34,9 +34,12 @@
      make build
      make docker 
      ```
-    
+
+
 - cd island  
-- docker-compose up -d
+    ```  
+    docker-compose up -d
+    ```
 - http://192.168.31.231:8888/search?q=大众(自己的ip)
 
 
