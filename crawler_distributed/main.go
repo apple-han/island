@@ -22,7 +22,7 @@ func main() {
 		itemChan chan pb.Item
 		err error
 	)
-	gredis.Setup()
+	
 	// 这里从服务发现中 发现地址
 	if len(consul.Find("item")) > 0{
 		itemChan, err = itemsaver.ItemSaver(consul.Find("item")[0])
@@ -50,6 +50,10 @@ func main() {
 			parser.ParseCarList,
 			config.ParseCarList),
 	})
+}
+
+func init(){
+	gredis.Setup()
 }
 
 func createClientPool(
