@@ -1,7 +1,7 @@
 # Go Distributed Reptile
 - 相信这个项目，对于学习分布式系统或者爬虫的你来说，帮助是巨大的。
 - 项目的思路来自于慕课网的ccmouse老师[链接](https://coding.imooc.com/learn/list/180.html)
-- 项目视频[介绍]https://www.bilibili.com/video/BV1n7411W7BB)
+- 项目视频[介绍](https://www.bilibili.com/video/BV1n7411W7BB)
 - 微服务教程[学习吧](https://study.163.com/course/courseMain.htm?courseId=1209482821)
 ## 技术栈
 **Go, Protobuf, Consul, Docker, Elasticsearch, BloomFilter**
