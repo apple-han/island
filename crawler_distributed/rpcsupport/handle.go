@@ -33,7 +33,7 @@ func (s *RPCService) Process(
 	return &result, nil
 }
 
-
+// SaveItem 把数据送到es中
 func (s *RPCService) SaveItem(
 	ctx context.Context, item *pb.SaveItemRequest) (*pb.SaveItemResult, error) {
 	err := persist.Save(s.Client, s.Index, item.Item)

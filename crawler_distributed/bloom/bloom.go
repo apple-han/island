@@ -95,7 +95,6 @@ func (s *SimpleHash) Hash(value string) uint{
  	return r
 }
 
-
 func (b *BloomFilter) MD5(value string) string {
 	m := md5.New()
 	m.Write([]byte(value))
